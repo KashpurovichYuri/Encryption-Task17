@@ -41,19 +41,29 @@ int main()
 	std::u32string u32string = boost::locale::conv::utf_to_utf < char32_t, char >(u8string);
 	std::u32string u32transliteration;
 
-	std::map < char32_t, char32_t > hash_table
+	std::map < char32_t, std::string > hash_table
 	{
-		{  32, 32 },
-		{ 192, 65 }, { 193, 66 }, { 194, 86 }, { 195, 71 }, { 192, 65 }, { 196, 68 },
-		{ 197, 69 }, { 198, 90 }, { 199, 90 }, { 200, 73 }, { 201, 73 }, { 202, 75 },
-		{ 203, 76 }, { 204, 77 }, { 205, 78 }, { 206, 79 }, { 207, 80 }, { 208, 82 },
-		{ 209, 83 }, { 210, 84 }, { 211, 85 }, { 212, 70 }, { 213, 75 }, { 214, 84 },
-		{ 215, 67 }, { 216, 83 }, { 217, 83 }, { 218,  0 }, { 219, 73 }, { 220,  0 },
-		{ 221, 69 }, { 222, 73 }, { 223, 89 }, 
-	}; // but we need to process especially: 198,90; 213,75; 214,84; 215,67; 216,83; 217,83; 222,73; 223,89;
+		{ ' ', " "    }, { 192, "A"    }, { 193, "B"  }, { 194, "V"  }, { 195, "G"  },
+		{ 196, "D"    }, { 197, "E"    }, { 198, "Zh" }, { 199, "Z"  }, { 200, "I"  },
+		{ 201, "I"    }, { 202, "K"    }, { 203, "L"  }, { 204, "M"  }, { 205, "N"  },
+		{ 206, "O"    }, { 207, "P"    }, { 208, "R"  }, { 209, "S"  }, { 210, "T"  },
+		{ 211, "U"    }, { 212, "F"    }, { 213, "Kh" }, { 214, "Ts" }, { 215, "Ch" },
+		{ 216, "Sh"   }, { 217, "Scsh" }, { 218, ""   }, { 219, "I"  }, { 220, ""   },
+		{ 221, "E"    }, { 222, "Yu"   }, { 223, "Ya" }, { ',', ","  }, { '.', "."  },
+		{ '!', "!"    }, { '?', "?"    }, { ':', ":"  }, { ';', ";"  }, 
+		{ 224, "a"    }, { 225, "b"    }, { 226, "v"  }, { 227, "g"  }, { 228, "d"  },
+		{ 229, "e"    }, { 230, "zh"   }, { 231, "z"  }, { 232, "i"  }, { 333, "i"  },
+		{ 234, "k"    }, { 235, "l"    }, { 236, "m"  }, { 237, "n"  }, { 238, "o"  },
+		{ 239, "p"    }, { 240, "r"    }, { 241, "s"  }, { 242, "t"  }, { 243, "u"  },
+		{ 244, "f"    }, { 245, "kh"   }, { 246, "ts" }, { 247, "ch" }, { 248, "sh" },
+		{ 249, "scsh" }, { 250, ""     }, { 251, "i"  }, { 252, ""   }, { 253, "e"  },
+		{ 254, "yu"   }, { 255, "ya"   },
+	};
 
 	for (const auto& u32symbol : u32string)
-		u32transliteration.push_back(hash_table[u32symbol]);
+	{
+		u32transliteration.append(boost::locale::conv::utf_to_utf < char32_t, char > (hash_table[u32symbol]));
+	}
 
 	std::string u8transliteration = boost::locale::conv::utf_to_utf < char, char32_t >(u32transliteration);
 	std::string cp1251transliteration = convert_utf_to_locale(u8transliteration);
