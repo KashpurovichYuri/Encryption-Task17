@@ -20,7 +20,7 @@ void print_money(const std::string& locale_name, const double value)
 {
 	std::ostringstream sout;
 	sout.imbue(std::locale(locale_name));
-	sout << std::showbase << std::put_money(value, true) << std::endl;
+	sout << std::showbase << std::put_money(value, false) << std::endl;
 	std::cout << sout.str() << std::endl;
 }
 
@@ -41,7 +41,7 @@ int main()
 	fill_money(input_money, "de_DE.utf8", val_EUR);
 	print_money("de_DE.utf8", val_EUR);
 
-	double course = 80.73;
+	const double course = 80.73;
 	auto val_RUB = EUR_to_RUB(val_EUR, course);
 	print_money("ru_RU.utf8", val_RUB);
 

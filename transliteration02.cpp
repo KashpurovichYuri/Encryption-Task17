@@ -7,7 +7,7 @@
 #include <boost/locale.hpp>
 
 #include <Windows.h>
-
+/*
 std::string convert_locale_to_utf(const std::string& string)
 {
 	boost::locale::generator generator;
@@ -41,7 +41,7 @@ int main()
 	std::u32string u32string = boost::locale::conv::utf_to_utf < char32_t, char >(u8string);
 	std::u32string u32transliteration;
 
-	std::map < char32_t, std::string > hash_table
+	std::unordered_map < char32_t, std::string > hash_table
 	{
 		{ ' ', " "    }, { 192, "A"    }, { 193, "B"  }, { 194, "V"  }, { 195, "G"  },
 		{ 196, "D"    }, { 197, "E"    }, { 198, "Zh" }, { 199, "Z"  }, { 200, "I"  },
@@ -74,3 +74,4 @@ int main()
 
 	return EXIT_SUCCESS;
 }
+*/
